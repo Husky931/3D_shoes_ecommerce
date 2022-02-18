@@ -4,7 +4,7 @@ import { Typography, Card, CardActions, CardContent, CardMedia, Button, Fade } f
 const ModalBox: React.FC = ({ showInfoBox, checked, model }) => {
   return (
     <Fade in={checked}>
-      <Card sx={{ maxWidth: 345, position: "absolute", top: "30%", left: "10%", display: showInfoBox }}>
+      <Card sx={{ maxWidth: 345, position: "absolute", top: "5%", right: "10%", display: showInfoBox }}>
         <CardMedia component="img" height="140" image={model.image} alt="green iguana" />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div" sx={{ margin: 0 }}>

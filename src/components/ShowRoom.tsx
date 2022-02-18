@@ -52,6 +52,38 @@ const ShowRoom: React.FC = ({ setModel, setShowInfoBox, setChecked }) => {
           setChecked(false)
         }}
       />
+      <Model
+        src="box/scene.gltf"
+        y={-175}
+        z={-4}
+        scale={1.5}
+        // x={350}
+        innerRotationY={0}
+        onMouseOver={() => {}}
+        onMouseOut={() => {}}
+      />
+      <Model
+        src="box/scene.gltf"
+        y={-175}
+        z={-4}
+        x={350}
+        scale={1.5}
+        // x={350}
+        innerRotationY={0}
+        onMouseOver={() => {}}
+        onMouseOut={() => {}}
+      />
+      <Model
+        src="box/scene.gltf"
+        y={-175}
+        z={-4}
+        x={-350}
+        scale={1.5}
+        // x={350}
+        innerRotationY={0}
+        onMouseOver={() => {}}
+        onMouseOut={() => {}}
+      />
       <Model src="showroom/scene.gltf" scale={5} innerRotationY={0} onMouseOver={() => {}} />
       <OrbitCamera active z={500} y={80} targetY={-100} />
     </World>
