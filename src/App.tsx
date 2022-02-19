@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { World, Model, useSpring, Camera, OrbitCamera } from "lingo3d-react"
 import ShowRoom from "./components/ShowRoom"
 import ModalBox from "./components/ModalBox"
 import models from "./models"

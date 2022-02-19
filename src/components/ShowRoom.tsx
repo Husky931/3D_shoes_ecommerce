@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { World, Model, OrbitCamera, useAnimation } from "lingo3d-react"
+import { World, Model, OrbitCamera, useAnimation, Camera } from "lingo3d-react"
 import models from "../models"
 
 // let useShoeAnimation = () => {
@@ -35,13 +35,29 @@ import models from "../models"
 const ShowRoom: React.FC = ({ setModel, setShowInfoBox, setChecked }) => {
   const anim = useAnimation({ from: -40, to: -50, repeat: Infinity, repeatType: "reverse", duration: 700 })
 
-  const [scale, setScale] = useState(0.8)
+  const [scale1, setScale1] = useState(0.8)
+  const [scale, setScale] = useState(0.7)
 
-  const zoomEffectHover = () => {
-    setScale(1.1)
+  const [camZ, setCamZ] = useState(420)
+  const [camY, setCamY] = useState(-30)
+  const [camX, setCamX] = useState(0)
+
+  const zoomEffectHover1 = () => {
+    setScale1(1.1)
+    setCamZ(200)
+    setCamY(0)
+    setCamX(0)
   }
-  const zoomEffectHoverClear = () => {
-    setScale(0.8)
+  const zoomEffectHoverClear1 = () => {
+    setScale1(0.8)
+    setCamZ(420)
+    setCamY(-30)
+  }
+
+  const zoomEffectHover2 = () => {
+    setScale(1.1)
+    setCamZ(200)
+    setCamY(0)
   }
 
   return (
@@ -49,34 +65,32 @@ const ShowRoom: React.FC = ({ setModel, setShowInfoBox, setChecked }) => {
       <Model
         src="air_jordan_1/scene.gltf"
         y={anim}
-        scale={scale}
+        scale={scale1}
         innerRotationY={0}
         onMouseOver={() => {
-          zoomEffectHover()
+          zoomEffectHover1()
           setShowInfoBox("block")
           setChecked(true)
           setModel(models[0])
         }}
         onMouseOut={() => {
-          zoomEffectHoverClear()
-          // setShowInfoBox("none")
-          // setChecked(false)
+          zoomEffectHoverClear1()
         }}
       />
       <Model
         src="shoes_violet/scene.gltf"
         y={anim}
         x={-350}
-        scale={0.7}
+        scale={scale}
         innerRotationY={0}
         onMouseOver={() => {
+          // zoomEffectHover2()
           setShowInfoBox("block")
           setChecked(true)
           setModel(models[1])
         }}
         onMouseOut={() => {
-          // setShowInfoBox("none")
-          // setChecked(false)
+          zoomEffectHoverClear1()
         }}
       />
       <Model
@@ -100,7 +114,8 @@ const ShowRoom: React.FC = ({ setModel, setShowInfoBox, setChecked }) => {
       <Model src="box/scene.gltf" y={-175} z={-4} x={350} scale={1.5} innerRotationY={0} onMouseOver={() => {}} onMouseOut={() => {}} />
       <Model src="box/scene.gltf" y={-175} z={-4} x={-350} scale={1.5} />
       <Model src="showroom/scene.gltf" scale={5} innerRotationY={0} onMouseOver={() => {}} />
-      <OrbitCamera active z={500} y={80} x={0} targetY={-100} />
+      <Camera active z={camZ} y={camY} x={camX} />
+      {/* <OrbitCamera active z={camZ} y={camY} x={camX} enableDamping /> */}
     </World>
   )
 }
