@@ -12,7 +12,7 @@ function App() {
   return (
     <div>
       <ShowRoom setModel={setModel} setShowInfoBox={setShowInfoBox} setChecked={setChecked} />
-      <ModalBox showInfoBox={showInfoBox} checked={checked} model={model} />
+      <ModalBox showInfoBox={showInfoBox} setShowInfoBox={setShowInfoBox} setChecked={setChecked} checked={checked} model={model} />
     </div>
   )
 }

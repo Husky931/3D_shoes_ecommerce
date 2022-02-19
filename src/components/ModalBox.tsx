@@ -1,10 +1,18 @@
-import { useState } from "react"
 import { Typography, Card, CardActions, CardContent, CardMedia, Button, Fade } from "@mui/material"
+import CancelIcon from "@mui/icons-material/Cancel"
 
-const ModalBox: React.FC = ({ showInfoBox, checked, model }) => {
+const ModalBox: React.FC = ({ showInfoBox, setShowInfoBox, setChecked, checked, model }) => {
   return (
     <Fade in={checked}>
-      <Card sx={{ maxWidth: 345, position: "absolute", top: "5%", right: "10%", display: showInfoBox }}>
+      <Card sx={{ maxWidth: 345, position: "absolute", top: "2%", right: "5%", display: showInfoBox }}>
+        <CancelIcon
+          sx={{ position: "absolute", right: "5px", top: "3px" }}
+          fontSize="large"
+          onClick={() => {
+            setShowInfoBox("none")
+            setChecked(false)
+          }}
+        />
         <CardMedia component="img" height="140" image={model.image} alt="green iguana" />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div" sx={{ margin: 0 }}>
