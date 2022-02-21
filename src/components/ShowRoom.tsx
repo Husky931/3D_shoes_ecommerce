@@ -7,7 +7,7 @@ const ShowRoom: React.FC = ({ setModel, setShowInfoBox, setChecked }) => {
 
   //initial elements scale
   const [scale1, setScale1] = useState(0.8)
-  const [scale, setScale] = useState(0.7)
+  const [scale2, setScale2] = useState(0.7)
 
   // initial elements Y position
   let [yy, setYY] = useState(anim)
@@ -17,12 +17,16 @@ const ShowRoom: React.FC = ({ setModel, setShowInfoBox, setChecked }) => {
   const [camY, setCamY] = useState(-30)
   const [camX, setCamX] = useState(0)
 
-  // make the rotation effect on hover
-  let [rotationY, setRotationY] = useState(0)
-  const [startRotating, setStartRotating] = useState(false)
+  // Mid shoes - hover effect setup
+  let [rotationYMid, setRotationYMid] = useState(0)
+  const [startRotatingMid, setStartRotatingMid] = useState(false)
+
+  // Left shoes - hover effect setup
+  let [rotationYLeft, setRotationYLeft] = useState(0)
+  const [startRotatingLeft, setStartRotatingLeft] = useState(false)
 
   const zoomEffectHover1 = () => {
-    setStartRotating(true)
+    setStartRotatingMid(true)
     setScale1(1.1)
     setCamZ(200)
     setCamY(0)
@@ -33,28 +37,52 @@ const ShowRoom: React.FC = ({ setModel, setShowInfoBox, setChecked }) => {
     setScale1(0.8)
     setCamZ(420)
     setCamY(-30)
-    setStartRotating(false)
-    setRotationY(0)
+    setStartRotatingMid(false)
+    setRotationYMid(0)
+  }
+
+  const zoomEffectHover2 = () => {
+    setStartRotatingLeft(true)
+    setScale2(1.1)
+    setCamZ(200)
+    setCamY(0)
+    setCamX(-350)
+    rotateObjectLeft()
+  }
+  const zoomEffectHoverClear2 = () => {
+    setScale2(0.8)
+    setCamZ(420)
+    setCamY(-30)
+    setCamX(0)
+    setStartRotatingLeft(false)
+    setRotationYLeft(0)
   }
 
   const rotateObject = () => {
-    if (startRotating) {
-      setRotationY((rotationY += 0.05))
+    if (startRotatingMid) {
+      setRotationYMid((rotationYMid += 0.05))
+    }
+  }
+
+  const rotateObjectLeft = () => {
+    if (startRotatingLeft) {
+      setRotationYLeft((rotationYLeft += 0.05))
     }
   }
 
   useEffect(() => {
     rotateObject()
-  }, [rotationY, startRotating])
+    rotateObjectLeft()
+  }, [rotationYMid, startRotatingMid, rotationYLeft, startRotatingLeft])
 
   return (
     <World>
       <Model
         src="air_jordan_1/scene.gltf"
-        y={startRotating ? 5 : anim}
+        y={startRotatingMid ? 5 : anim}
         scale={scale1}
         innerRotationY={0}
-        rotationY={rotationY}
+        rotationY={rotationYMid}
         onMouseOver={() => {
           zoomEffectHover1()
           setShowInfoBox("block")
@@ -67,18 +95,19 @@ const ShowRoom: React.FC = ({ setModel, setShowInfoBox, setChecked }) => {
       />
       <Model
         src="shoes_violet/scene.gltf"
-        y={anim}
+        y={startRotatingLeft ? 5 : anim}
         x={-350}
-        scale={scale}
+        scale={scale2}
         innerRotationY={0}
+        rotationY={rotationYLeft}
         onMouseOver={() => {
-          // zoomEffectHover2()
+          zoomEffectHover2()
           setShowInfoBox("block")
           setChecked(true)
           setModel(models[1])
         }}
         onMouseOut={() => {
-          zoomEffectHoverClear1()
+          zoomEffectHoverClear2()
         }}
       />
       <Model
