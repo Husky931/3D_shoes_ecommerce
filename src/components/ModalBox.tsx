@@ -6,7 +6,7 @@ const ModalBox: React.FC = ({ showInfoBox, setShowInfoBox, setChecked, checked, 
     <Fade in={checked}>
       <Card sx={{ maxWidth: 345, position: "absolute", top: "0%", right: "0%", display: showInfoBox, zIndex: 9999 }}>
         <CancelIcon
-          sx={{ position: "absolute", right: "5px", top: "3px" }}
+          sx={{ position: "absolute", right: "5px", top: "3px", cursor: "pointer" }}
           fontSize="large"
           onClick={() => {
             setShowInfoBox("none")

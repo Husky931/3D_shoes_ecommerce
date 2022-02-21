@@ -25,6 +25,10 @@ const ShowRoom: React.FC = ({ setModel, setShowInfoBox, setChecked }) => {
   let [rotationYLeft, setRotationYLeft] = useState(0)
   const [startRotatingLeft, setStartRotatingLeft] = useState(false)
 
+  // Right shoes - hover effect setup
+  let [rotationYRight, setRotationYRight] = useState(180)
+  const [startRotatingRight, setStartRotatingRight] = useState(false)
+
   const zoomEffectHover1 = () => {
     setStartRotatingMid(true)
     setScale1(1.1)
@@ -58,6 +62,23 @@ const ShowRoom: React.FC = ({ setModel, setShowInfoBox, setChecked }) => {
     setRotationYLeft(0)
   }
 
+  const zoomEffectHover3 = () => {
+    setStartRotatingRight(true)
+    setScale2(1.1)
+    setCamZ(200)
+    setCamY(0)
+    setCamX(350)
+    rotateObjectRight()
+  }
+  const zoomEffectHoverClear3 = () => {
+    setScale2(0.8)
+    setCamZ(420)
+    setCamY(-30)
+    setCamX(0)
+    setStartRotatingRight(false)
+    setRotationYRight(180)
+  }
+
   const rotateObject = () => {
     if (startRotatingMid) {
       setRotationYMid((rotationYMid += 0.05))
@@ -70,10 +91,17 @@ const ShowRoom: React.FC = ({ setModel, setShowInfoBox, setChecked }) => {
     }
   }
 
+  const rotateObjectRight = () => {
+    if (startRotatingRight) {
+      setRotationYRight((rotationYRight += 0.05))
+    }
+  }
+
   useEffect(() => {
     rotateObject()
     rotateObjectLeft()
-  }, [rotationYMid, startRotatingMid, rotationYLeft, startRotatingLeft])
+    rotateObjectRight()
+  }, [rotationYMid, startRotatingMid, rotationYLeft, startRotatingLeft, rotationYRight, startRotatingRight])
 
   return (
     <World>
@@ -112,19 +140,19 @@ const ShowRoom: React.FC = ({ setModel, setShowInfoBox, setChecked }) => {
       />
       <Model
         src="sport_shoes/scene.gltf"
-        y={anim}
+        y={startRotatingRight ? 5 : anim}
         x={350}
-        scale={0.7}
+        scale={scale2}
         innerRotationY={0}
-        rotationY={180}
+        rotationY={rotationYRight}
         onMouseOver={() => {
+          zoomEffectHover3()
           setShowInfoBox("block")
           setChecked(true)
           setModel(models[2])
         }}
         onMouseOut={() => {
-          // setShowInfoBox("none")
-          // setChecked(false)
+          zoomEffectHoverClear3()
         }}
       />
       <Model src="box/scene.gltf" y={-175} z={-4} scale={1.5} innerRotationY={0} onMouseOver={() => {}} onMouseOut={() => {}} />
