@@ -2,7 +2,13 @@ import { useEffect, useState } from "react"
 import { World, Model, OrbitCamera, useAnimation, Camera } from "lingo3d-react"
 import models from "../models"
 
-const ShowRoom: React.FC = ({ setModel, setShowInfoBox, setChecked }) => {
+interface ShowRoom {
+  setModel: any
+  setShowInfoBox: any
+  setChecked: any
+}
+
+const ShowRoom: React.FC<ShowRoom> = ({ setModel, setShowInfoBox, setChecked }): JSX.Element => {
   const anim = useAnimation({ from: -40, to: -50, repeat: Infinity, repeatType: "reverse", duration: 700 })
 
   //initial elements scale

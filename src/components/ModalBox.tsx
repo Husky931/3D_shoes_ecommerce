@@ -1,7 +1,16 @@
 import { Typography, Card, CardActions, CardContent, CardMedia, Button, Fade } from "@mui/material"
 import CancelIcon from "@mui/icons-material/Cancel"
+import { JSXElementConstructor } from "react"
 
-const ModalBox: React.FC = ({ showInfoBox, setShowInfoBox, setChecked, checked, model }) => {
+interface ModalBox {
+  showInfoBox: any
+  setShowInfoBox: any
+  setChecked: any
+  checked: any
+  model: any
+}
+
+const ModalBox: React.FC<ModalBox> = ({ showInfoBox, setShowInfoBox, setChecked, checked, model }): JSX.Element => {
   return (
     <Fade in={checked}>
       <Card sx={{ maxWidth: 345, position: "absolute", top: "0%", right: "0%", display: showInfoBox, zIndex: 9999 }}>
