@@ -4,7 +4,7 @@ import CancelIcon from "@mui/icons-material/Cancel"
 const ModalBox: React.FC = ({ showInfoBox, setShowInfoBox, setChecked, checked, model }) => {
   return (
     <Fade in={checked}>
-      <Card sx={{ maxWidth: 345, position: "absolute", top: "2%", right: "5%", display: showInfoBox }}>
+      <Card sx={{ maxWidth: 345, position: "absolute", top: "0%", right: "0%", display: showInfoBox, zIndex: 9999 }}>
         <CancelIcon
           sx={{ position: "absolute", right: "5px", top: "3px" }}
           fontSize="large"
@@ -18,7 +18,7 @@ const ModalBox: React.FC = ({ showInfoBox, setShowInfoBox, setChecked, checked, 
           <Typography gutterBottom variant="h5" component="div" sx={{ margin: 0 }}>
             {model.name}
           </Typography>
-          <Typography gutterBottom variant="h5" component="div" sx={{ margin: 0, marginBottom: "10px", color: "blue" }}>
+          <Typography gutterBottom variant="h5" component="div" sx={{ margin: 0, marginBottom: "5px", color: "blue" }}>
             {model.price}
           </Typography>
           <Typography variant="body2" color="text.secondary">

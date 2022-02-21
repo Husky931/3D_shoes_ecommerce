@@ -2,71 +2,59 @@ import { useEffect, useState } from "react"
 import { World, Model, OrbitCamera, useAnimation, Camera } from "lingo3d-react"
 import models from "../models"
 
-// let useShoeAnimation = () => {
-//   let [shoeZ, setShoeZ] = useState(0)
-//   let [shoeRotation, setShoeRotation] = useState(0)
-
-//   let zAnimation = useSpring({ from: 1, to: shoeZ })
-//   let rotationAnimation = useSpring({ from: 0, to: shoeRotation })
-
-//   let over = () => {
-//     setShoeZ(300)
-//     setShoeRotation(180)
-//   }
-
-//   let out = () => {
-//     setShoeZ(0)
-//     setShoeRotation(0)
-//   }
-
-//   return [rotationAnimation, zAnimation, over, out]
-// }
-
-// function App() {
-//   let [rotationAnimation, zAnimation, over, out] = useShoeAnimation()
-//   let [rotationAnimation2, zAnimation2, over2, out2] = useShoeAnimation()
-
-//   const [cameraX, setCameraX] = useState(0)
-//   const cameraXAnimation = useSpring({ from: 0, to: cameraX })
-
-//   let [price, setPrice] = useState("unselected")
-//   let [shoeName, setShoeName] = useState("unselected")
-
 const ShowRoom: React.FC = ({ setModel, setShowInfoBox, setChecked }) => {
   const anim = useAnimation({ from: -40, to: -50, repeat: Infinity, repeatType: "reverse", duration: 700 })
 
+  //initial elements scale
   const [scale1, setScale1] = useState(0.8)
   const [scale, setScale] = useState(0.7)
 
+  // initial elements Y position
+  let [yy, setYY] = useState(anim)
+
+  //  set camera effects when hover over elements
   const [camZ, setCamZ] = useState(420)
   const [camY, setCamY] = useState(-30)
   const [camX, setCamX] = useState(0)
 
+  // make the rotation effect on hover
+  let [rotationY, setRotationY] = useState(0)
+  const [startRotating, setStartRotating] = useState(false)
+
   const zoomEffectHover1 = () => {
+    setStartRotating(true)
     setScale1(1.1)
     setCamZ(200)
     setCamY(0)
     setCamX(0)
+    rotateObject()
   }
   const zoomEffectHoverClear1 = () => {
     setScale1(0.8)
     setCamZ(420)
     setCamY(-30)
+    setStartRotating(false)
+    setRotationY(0)
   }
 
-  const zoomEffectHover2 = () => {
-    setScale(1.1)
-    setCamZ(200)
-    setCamY(0)
+  const rotateObject = () => {
+    if (startRotating) {
+      setRotationY((rotationY += 0.05))
+    }
   }
+
+  useEffect(() => {
+    rotateObject()
+  }, [rotationY, startRotating])
 
   return (
     <World>
       <Model
         src="air_jordan_1/scene.gltf"
-        y={anim}
+        y={startRotating ? 5 : anim}
         scale={scale1}
         innerRotationY={0}
+        rotationY={rotationY}
         onMouseOver={() => {
           zoomEffectHover1()
           setShowInfoBox("block")
