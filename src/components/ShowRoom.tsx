@@ -106,7 +106,7 @@ const ShowRoom: React.FC = ({ setModel, setShowInfoBox, setChecked }) => {
   return (
     <World>
       <Model
-        src="air_jordan_1/scene.gltf"
+        src="jordan1/scene.gltf"
         y={startRotatingMid ? 5 : anim}
         scale={scale1}
         innerRotationY={0}
@@ -122,7 +122,7 @@ const ShowRoom: React.FC = ({ setModel, setShowInfoBox, setChecked }) => {
         }}
       />
       <Model
-        src="shoes_violet/scene.gltf"
+        src="shoes_left/scene.gltf"
         y={startRotatingLeft ? 5 : anim}
         x={-350}
         scale={scale2}
